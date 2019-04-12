@@ -23,13 +23,11 @@ public class H5CacheComponent {
                 .connectTimeoutSecond(10)
                 .readTimeoutSecond(10)
                 .filter(new CacheFilter() {
+                    //拦截URL, 忽略queryString
                     @Override
                     public void fillUrlInFilter(Set<String> urlStartRegex) {
-                        urlStartRegex.add("^(http)[s]?://(\\w)+.zuzuche.((com|net)/?)$");
-                        urlStartRegex.add("^(http)[s]?://(\\w)+.zuzuche.(com|net)/account/order.(php)$");
-                        urlStartRegex.add("^(http)[s]?://(\\w)+.zuzuche.(com|net)/w/voucher.(php)$");
-                        urlStartRegex.add("^(http)[s]?://(\\w)+.zuzuche.(com|net)/w/book/order.(php)$");
-                        //^(http)[s]?://(\w)+.zuzuche.(com|net)/w/select/select_city.(php)$
+                        urlStartRegex.add("^(http)[s]?://(\\w)+.taobao.((com|net)/?)$");
+                        urlStartRegex.add("^(http)[s]?://(\\w)+.taobao.(com|net)/account/order.(php)$");
                     }
 
                     @Override
@@ -39,6 +37,7 @@ public class H5CacheComponent {
 
                     @Override
                     public int cacheMode() {
+                        //缓存开关，CACHE_NONE 关闭，CACHE_ALL 全开，CACHE_FILTER 根据过滤条件
                         return CacheFilter.CACHE_ALL;
                     }
                 }).build();

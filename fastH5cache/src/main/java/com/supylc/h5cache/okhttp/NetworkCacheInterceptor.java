@@ -18,7 +18,7 @@ public class NetworkCacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
-        H5CacheLog.d("h5", "url connect start=====" + request.url().toString());
+       // H5CacheLog.d("h5", "url connect start=====" + request.url().toString());
 
         Response response = chain.proceed(request);
 
@@ -41,7 +41,7 @@ public class NetworkCacheInterceptor implements Interceptor {
             }
         }
 
-        H5CacheLog.d("h5", "url connect end =====" + request.url().toString() + " " + request.method() + " " + response.code());
+        //H5CacheLog.d("h5", "url connect end =====" + request.url().toString() + " " + request.method() + " " + response.code());
         return response;
     }
 }

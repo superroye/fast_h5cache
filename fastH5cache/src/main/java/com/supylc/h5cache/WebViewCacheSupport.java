@@ -52,7 +52,6 @@ public class WebViewCacheSupport {
         Request.Builder requestBuilder = new Request.Builder().tag(mOriginalUrl).url(url);
 
         addHeader(requestBuilder, requestHeaders);
-        H5CacheLog.d("h5", "2 getResource=====" + url + " " + method);
         if ("POST".equals(method)) {
             mJSSubmitIntercept.setPost(requestBuilder);
 
@@ -70,9 +69,9 @@ public class WebViewCacheSupport {
             String mimeType = HeadersUtils.getResponseMimeType(responseHeaders);
 
             if (cacheRes != null) {
-                H5CacheLog.d(String.format("=======from cache: %s", url) + " " + mimeType + " " + response.code());
+                H5CacheLog.d(String.format("url cache: %s", url) + " " + mimeType + " " + response.code());
             } else {
-                H5CacheLog.d(String.format("=======from server: %s", url) + " " + mimeType + " " + response);
+                H5CacheLog.d(String.format("url server: %s", url) + " " + mimeType + " " + response.code());
             }
 
             WebResourceResponse webResourceResponse = new WebResourceResponse(mimeType, "UTF-8", response.body().byteStream());

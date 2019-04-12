@@ -1,8 +1,10 @@
 package com.supylc.h5cache.demo;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.supylc.h5cache.utils.NetworkUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     Button submit;
     EditText input;
     BroadcastReceiver networkChangeReceiver;
+
+    RxPermissions rxPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         input = findViewById(R.id.input);
 
-        //input.setText("http://m.zuzuche.net/");
-        input.setText("http://m.zuzuche.net");
+        input.setText("http://www.baidu.com");
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,27 +41,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        webViewInit();
+        rxPermissions = new RxPermissions(this);
 
-        fastWebView.loadUrl(input.getText().toString());
+        webViewInit();
 
         WebView.setWebContentsDebuggingEnabled(true);
 
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-//        networkChangeReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                if (NetworkUtils.isAvailable(fastWebView.getContext())) {
-//                    Toast.makeText(context, "网络Good", Toast.LENGTH_SHORT).show();
-//                    fastWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-//                } else {
-//                    Toast.makeText(context, "网络Bad", Toast.LENGTH_SHORT).show();
-//                    fastWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-//                }
-//            }
-//        };
-//        registerReceiver(networkChangeReceiver, intentFilter);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NETWORK_STATE)
+                .subscribe(data -> {
+                    fastWebView.loadUrl(input.getText().toString());
+                });
     }
 
     @Override
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void webViewInit() {
+        fastWebView.setWebViewClient(new MyWebViewClient(fastWebView));
         WebSettings webSettings = fastWebView.getSettings();
 
         webSettings.setJavaScriptEnabled(true);

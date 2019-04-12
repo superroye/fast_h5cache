@@ -2,10 +2,6 @@ package com.supylc.h5cache.demo;
 
 import android.app.Application;
 
-import com.supylc.h5cache.CacheFilter;
-
-import java.io.File;
-import java.util.Set;
 
 /**
  * @author Roye
