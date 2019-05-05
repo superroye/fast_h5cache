@@ -130,8 +130,8 @@ public class WebViewCacheSupport {
         }
     }
 
-    public boolean needCache(String url) {
-        return mCacheFilter.isNeedCache(url);
+    public boolean needCache() {
+        return mCacheFilter.isNeedCache(mOriginalUrl);
     }
 
     private void resetRequestContents() {

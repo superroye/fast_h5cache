@@ -26,7 +26,7 @@ public class MyWebViewClient extends android.webkit.WebViewClient {
     @Override
     public WebResourceResponse shouldInterceptRequest(final WebView view, WebResourceRequest request) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (webViewRequestInterceptor.needCache(request.getUrl().toString())) {
+            if (webViewRequestInterceptor.needCache()) {
                 WebResourceResponse response = webViewRequestInterceptor.interceptRequest(request);
                 if (response != null) {
                     return response;

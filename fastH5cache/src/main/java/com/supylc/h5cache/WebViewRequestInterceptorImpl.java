@@ -59,7 +59,7 @@ public class WebViewRequestInterceptorImpl implements WebViewRequestInterceptor 
     }
 
     @Override
-    public boolean needCache(String url) {
-        return webViewCacheSupport.needCache(url);
+    public boolean needCache() {
+        return webViewCacheSupport.needCache();
     }
 }

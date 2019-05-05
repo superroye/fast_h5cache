@@ -25,5 +25,5 @@ public interface WebViewRequestInterceptor {
 
     void setOriginalUrl(String originalUrl);
 
-    boolean needCache(String url);
+    boolean needCache();
 }
